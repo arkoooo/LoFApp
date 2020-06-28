@@ -1,0 +1,19 @@
+body{
+background-color: rgba(255, 99, 71, 0.5)
+}
+h1, p{
+color: white;
+}
+.cursor:hover{
+    cursor:pointer;
+}
+.dropdown-menu{
+    background-color: #343a40;
+}
+.dropdown-item{
+    color: #F5F5F5;
+}
+.dropdown-item:hover{
+    background-color: #343a40;
+    color: rgba(255, 99, 71, 0.5)
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{styles/style.css}">
+    <script type="text/javascript" th:src="@{/js/lib.js}"></script>
+    <title>Legit or Fake</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" th:fragment="navbar">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="../" th:href="@{/}">Strona główna</a>
+        </li>
+        <li class="nav-item dropdown cursor">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Odzież</a>
+            <div class="dropdown-menu border border-white">
+                <span th:each="category: ${clothesCategories}">
+                    <a class="dropdown-item" href="/items/all.html" th:href="@{/items/all/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                </span>
+            </div>
+        </li>
+        <li class="nav-item dropdown cursor">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Obuwie</a>
+            <div class="dropdown-menu border border-white">
+                <span th:each="category: ${shoesCategories}">
+                    <a class="dropdown-item" href="/items/all.html" th:href="@{/items/all/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                </span>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="../users/list.html" th:href="@{/users/all}">Lista sprawdzających</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Menu użytkownika</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link cursor" onclick="goBack()">Powrót</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item"><button type="button" class="btn btn-outline-info">Rejestracja</button></li>&nbsp
+        <li class="nav-item"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginForm">Zaloguj</button></li>
+    </ul>
+    <div class="modal" id="loginForm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h4 class="modal-title text-white">Zaloguj się</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group text-white">
+                        <label for="user">Login:</label>
+                        <input type="text" class="form-control" id="user" name="username">
+                    </div>
+                    <div class="form-group text-white">
+                        <label for="pswd">Hasło:</label>
+                        <input type="password" class="form-control" id="pswd" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer mx-auto">
+                    <button type="submit" class="btn btn-success" data-dismiss="modal">Zaloguj</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Wyjdź</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
