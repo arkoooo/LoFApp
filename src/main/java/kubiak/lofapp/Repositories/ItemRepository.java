@@ -10,4 +10,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     Item findById(int id);
     List<Item> findByItemCategoryId(int id);
+
 }

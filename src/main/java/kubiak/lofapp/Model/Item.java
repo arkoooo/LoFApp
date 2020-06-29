@@ -1,6 +1,7 @@
 package kubiak.lofapp.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -8,16 +9,18 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name;
-
     @ManyToOne
     private ItemCategory itemCategory;
 
     @ManyToOne
     private User user;
 
-    private int fake;
-    private int original;
+    @OneToMany(mappedBy = "item")
+    private List<Images> imagesList;
+
+    private String name;
+    private int fake = 0;
+    private int original = 0;
     private String description;
 
     public int getId() {
@@ -66,5 +69,13 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
