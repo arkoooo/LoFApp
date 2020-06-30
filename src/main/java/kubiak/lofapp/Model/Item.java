@@ -16,11 +16,17 @@ public class Item {
     private User user;
 
     @OneToMany(mappedBy = "item")
-    private List<Images> imagesList;
+    private List<Image> imageList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_small_id", referencedColumnName = "id")
+    private Image image;
 
     private String name;
-    private int fake = 0;
-    private int original = 0;
+    private int fakePoints = 0;
+    private int originalPoints = 0;
+    private int fakeVotes = 0;
+    private int originalVotes = 0;
     private String description;
 
     public int getId() {
@@ -47,20 +53,36 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public int getFake() {
-        return fake;
+    public int getFakePoints() {
+        return fakePoints;
     }
 
-    public void setFake(int fake) {
-        this.fake = fake;
+    public void setFakePoints(int fakePoints) {
+        this.fakePoints = fakePoints;
     }
 
-    public int getOriginal() {
-        return original;
+    public int getOriginalPoints() {
+        return originalPoints;
     }
 
-    public void setOriginal(int original) {
-        this.original = original;
+    public void setOriginalPoints(int originalPoints) {
+        this.originalPoints = originalPoints;
+    }
+
+    public int getFakeVotes() {
+        return fakeVotes;
+    }
+
+    public void setFakeVotes(int fakeVotes) {
+        this.fakeVotes = fakeVotes;
+    }
+
+    public int getOriginalVotes() {
+        return originalVotes;
+    }
+
+    public void setOriginalVotes(int originalVotes) {
+        this.originalVotes = originalVotes;
     }
 
     public String getDescription() {
@@ -77,5 +99,21 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
