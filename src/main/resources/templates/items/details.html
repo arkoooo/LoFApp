@@ -12,7 +12,7 @@
 </head>
 <body>
 <div th:insert="/navbar :: navbar">  </div>
-
+<div th:insert="/login :: login">  </div>
     <div class="container" th:each="item: ${detailedItems}">
             <div class="card bg-dark text-white mt-5" style="width:400px" >
                 <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -36,8 +36,8 @@
                 </div>
                 <div class="card-body">
                     <h2 th:text="${item.name}">Item name</h2>
-                    <h4> Sprzedawane przez: <span class="card-title" th:text="${item.user.login}">Seller's name</span><br>
-                    <p class="card-text" th:text="${item.description}">Item's description</p>
+                    <h4> Sprzedawane przez: <span class="card-title" th:text="${item.user.login}"><strong>Seller name</strong></span>
+                    <h5 class="card-text mt-2" th:text="${item.description}">Item's description</h5>
                 </div>
             </div>
 </div>

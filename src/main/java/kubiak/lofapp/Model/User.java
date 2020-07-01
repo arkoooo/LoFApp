@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
@@ -16,6 +17,7 @@ public class User {
     private String password;
     private String mail;
     private String points;
+    private boolean active;
 
     public int getId() {
         return id;
@@ -63,5 +65,13 @@ public class User {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
