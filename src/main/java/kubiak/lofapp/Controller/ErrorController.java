@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ErrorController {
-    ItemCategoryRepository itemCategoryRepository;
+    private ItemCategoryRepository itemCategoryRepository;
 
     public ErrorController(ItemCategoryRepository itemCategoryRepository) {
         this.itemCategoryRepository = itemCategoryRepository;

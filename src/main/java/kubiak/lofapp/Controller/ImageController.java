@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ImageController {
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
     public ImageController(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;

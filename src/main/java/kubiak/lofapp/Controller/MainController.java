@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-    ItemCategoryRepository itemCategoryRepository;
+    private ItemCategoryRepository itemCategoryRepository;
 
     public MainController(ItemCategoryRepository itemCategoryRepository) {
         this.itemCategoryRepository = itemCategoryRepository;

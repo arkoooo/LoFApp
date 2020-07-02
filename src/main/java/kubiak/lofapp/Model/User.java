@@ -13,6 +13,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Item> items;
 
+    @Column(nullable = false, unique = true)
     private String login;
     private String password;
     private String mail;

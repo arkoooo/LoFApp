@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
-    ItemCategoryRepository itemCategoryRepository;
+    private ItemCategoryRepository itemCategoryRepository;
 
     public LoginController(ItemCategoryRepository itemCategoryRepository) {
         this.itemCategoryRepository = itemCategoryRepository;

@@ -12,10 +12,10 @@ import java.util.List;
 
 @Controller
 public class ItemController {
-    ItemCategoryRepository itemCategoryRepository;
-    ItemRepository itemRepository;
-    ImageRepository imageRepository;
-    List<Integer> itemIds;
+    private ItemCategoryRepository itemCategoryRepository;
+    private ItemRepository itemRepository;
+    private ImageRepository imageRepository;
+    private List<Integer> itemIds;
 
     public ItemController(ItemCategoryRepository itemCategoryRepository, ItemRepository itemRepository, ImageRepository imageRepository, List<Integer> itemIds) {
         this.itemCategoryRepository = itemCategoryRepository;

@@ -28,6 +28,8 @@ public class Item {
     private int fakeVotes = 0;
     private int originalVotes = 0;
     private String description;
+    private String createDate;
+    private int views;
 
     public int getId() {
         return id;

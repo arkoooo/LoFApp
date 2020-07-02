@@ -13,15 +13,27 @@
 <body>
 <div th:insert="/navbar :: navbar">  </div>
 <div class="container">
-<h1 class="text-black">Strona logowania</h1>
-<p th:if="${loginError}" class="error text-black">Błędny użytkownik lub hasło</p>
-    <form th:action="@{/login}" method="post">
-        <label for="username">Login</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-        <label for="password">Hasło</label>:
-        <input type="password" id="password" name="password" /> <br />
-        <input type="submit" class="btn btn-success" value="Zaloguj" />
-    </form>
+    <div class="text-center text-black mt-1">
+        <h1>Zaloguj się</h1>
+        <p th:if="${loginError}" class="error">Błędny użytkownik lub hasło</p>
+    </div>
+        <form th:action="@{/login}" method="post">
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <div class="form-group">
+                        <label for="username">Login</label>:
+                        <input type="text" id="username" name="username" autofocus="autofocus" class="form-control"/> <br/>
+                        <label for="password">Hasło</label>:
+                        <input type="password" id="password" name="password" class="form-control"/> <br />
+                        <center>
+                        <input type="submit" class="btn btn-success" value="Zaloguj" />
+                        <input type="reset" class="btn btn-danger" value="Reset" />
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+        </form>
 </div>
 </body>
 </html>
