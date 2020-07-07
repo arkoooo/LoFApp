@@ -15,13 +15,47 @@
 <div th:insert="/navbar :: navbar">  </div>
 <div class="container">
     <br>
-    <div class="jumbotron bg-dark">
-        <h1>Najnowsze</h1>
-        <p>Ostatnio dodane przedmioty</p>
+    <div class="jumbotron bg-dark" >
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tr>
+                    <h1>Najnowsze</h1>
+                    <p>Ostatnio dodane przedmioty</p>
+                </tr>
+                <th th:each="newest : ${newestItems}">
+                    <div class="card mt-5 bg-dark text-white" style="width:200px" >
+                        <img class="card-img-top rounded" style="width:100%">
+                        <div class="card-body">
+                            <img class="card-img-top rounded" th:src="@{/image/{id}(id=${newest.image.id})}" style="width:100%;height:200px">
+                            <h4 class="card-title" th:text="${#strings.length(newest.name)}>13 ? ${#strings.substring(newest.name,0,13)}
+                        : ${newest.name}">Clothe name</h4>
+                            <a href="/items/details.html" th:href="@{/items/details/{id}(id=${newest.id})}" class="btn btn-primary">Zobacz szczegóły</a>
+                        </div>
+                    </div>
+                </th>
+            </table>
+        </div>
     </div>
     <div class="jumbotron bg-dark">
-        <h1>Najpopularniejsze</h1>
-        <p>Najczęściej wyświetlane przedmioty</p>
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tr>
+                <h1>Najpopularniejsze</h1>
+                <p>Najczęściej wyświetlane przedmioty</p>
+                </tr>
+                <th th:each="topViewed : ${topViewedItems}">
+                    <div class="card mt-5 bg-dark text-white" style="width:200px" >
+                        <img class="card-img-top rounded" style="width:100%">
+                        <div class="card-body">
+                            <img class="card-img-top rounded" th:src="@{/image/{id}(id=${topViewed.image.id})}" style="width:100%;height:200px">
+                            <h4 class="card-title" th:text="${#strings.length(topViewed.name)}>13 ? ${#strings.substring(topViewed.name,0,13)}
+                        : ${topViewed.name}">Clothe name</h4>
+                            <a href="/items/details.html" th:href="@{/items/details/{id}(id=${topViewed.id})}" class="btn btn-primary">Zobacz szczegóły</a>
+                        </div>
+                    </div>
+                </th>
+            </table>
+        </div>
     </div>
 </div>
 

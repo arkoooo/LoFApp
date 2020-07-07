@@ -10,5 +10,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     Item findById(int id);
     List<Item> findByItemCategoryId(int id);
-
+    List<Item> findTop10ByOrderByViewsDesc();
+    List<Item> findTop10ByOrderByCreateDateDesc();
 }

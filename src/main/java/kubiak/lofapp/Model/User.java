@@ -13,11 +13,17 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Item> items;
 
+    @OneToMany(mappedBy = "user")
+    private List<Vote> votesLists;
+
     @Column(nullable = false, unique = true)
     private String login;
-    private String password;
+
+    @Column(unique = true)
     private String mail;
-    private String points;
+
+    private String password;
+    private int points = 1;
     private boolean active;
 
     public int getId() {
@@ -60,11 +66,11 @@ public class User {
         this.mail = mail;
     }
 
-    public String getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(int points) {
         this.points = points;
     }
 

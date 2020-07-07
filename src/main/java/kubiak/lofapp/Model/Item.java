@@ -22,6 +22,9 @@ public class Item {
     @JoinColumn(name = "image_small_id", referencedColumnName = "id")
     private Image image;
 
+    @OneToMany(mappedBy = "item")
+    private List<Vote> votesList;
+
     private String name;
     private int fakePoints = 0;
     private int originalPoints = 0;
@@ -117,5 +120,21 @@ public class Item {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

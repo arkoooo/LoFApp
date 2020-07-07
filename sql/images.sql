@@ -13,3 +13,6 @@ insert into `image` (`id`, `image_url`, `item_id`) values('5','/img/majors2.jpg'
 insert into `image` (`id`, `image_url`, `item_id`) values('6','/img/majors2.jpg','3');
 insert into `image` (`id`, `image_url`, `item_id`) values('7','/img/majors3.jpg','3');
 insert into `image` (`id`, `image_url`, `item_id`) values('8','/img/majors.jpg','4');
+insert into `image` (`id`, `image_url`, `item_id`) values('9','/img/majors.jpg','5');
+insert into `image` (`id`, `image_url`, `item_id`) values('10','/img/majors.jpg','6');
+insert into `image` (`id`, `image_url`, `item_id`) values('11','/img/majors.jpg','7');

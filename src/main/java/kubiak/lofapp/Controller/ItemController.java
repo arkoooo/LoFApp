@@ -35,10 +35,15 @@ public class ItemController {
     }
     @GetMapping("/items/details/{id}")
     public String showDetails(@PathVariable("id") int id, Model model){
+        Item item = itemRepository.findById(id);
+
         model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
-        model.addAttribute("detailedItems", itemRepository.findById(id));
+        model.addAttribute("detailedItems", item);
         model.addAttribute("itemImages", imageRepository.findByItemId(id));
+
+        item.setViews(item.getViews()+1);
+        itemRepository.save(item);
         return "items/details";
     }
 }
