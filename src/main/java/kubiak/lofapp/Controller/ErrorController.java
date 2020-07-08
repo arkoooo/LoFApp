@@ -14,7 +14,7 @@ public class ErrorController {
         this.itemCategoryRepository = itemCategoryRepository;
     }
 
-    @GetMapping("/wrong")
+    @GetMapping("/error")
     public String showErrorPage(Model model){
         model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));

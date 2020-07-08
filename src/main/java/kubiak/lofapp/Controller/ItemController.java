@@ -4,6 +4,7 @@ import kubiak.lofapp.Model.Item;
 import kubiak.lofapp.Repositories.ImageRepository;
 import kubiak.lofapp.Repositories.ItemCategoryRepository;
 import kubiak.lofapp.Repositories.ItemRepository;
+import kubiak.lofapp.Repositories.VoteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,13 @@ public class ItemController {
     private ItemCategoryRepository itemCategoryRepository;
     private ItemRepository itemRepository;
     private ImageRepository imageRepository;
-    private List<Integer> itemIds;
+    private VoteRepository voteRepository;
 
-    public ItemController(ItemCategoryRepository itemCategoryRepository, ItemRepository itemRepository, ImageRepository imageRepository, List<Integer> itemIds) {
+    public ItemController(ItemCategoryRepository itemCategoryRepository, ItemRepository itemRepository, ImageRepository imageRepository, VoteRepository voteRepository) {
         this.itemCategoryRepository = itemCategoryRepository;
         this.itemRepository = itemRepository;
         this.imageRepository = imageRepository;
-        this.itemIds = itemIds;
+        this.voteRepository = voteRepository;
     }
 
     @GetMapping("/items/all/{id}")
@@ -41,6 +42,7 @@ public class ItemController {
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
         model.addAttribute("detailedItems", item);
         model.addAttribute("itemImages", imageRepository.findByItemId(id));
+        model.addAttribute("votes", voteRepository.findByUserIdAndItemId(1,id));
 
         item.setViews(item.getViews()+1);
         itemRepository.save(item);

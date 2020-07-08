@@ -29,10 +29,22 @@ public class VoteController {
     public String vote(@RequestParam int itemId, int userId, boolean choice){
         User user = userRepository.findById(userId);
         Item item = itemRepository.findById(itemId);
+        int userPoints = user.getPoints();
 
+        //  User can vote only once on item, so there is looking for other votes
         if(voteRepository.findByUserIdAndItemId(userId, itemId) == null){
             Vote vote = new Vote(item, user, choice);
             voteRepository.save(vote);
+
+            if(!choice){
+                item.setFakeVotes(item.getFakeVotes()+1);
+                item.setFakePoints(item.getFakePoints()+userPoints);
+            }
+            if(choice){
+                item.setOriginalVotes(item.getOriginalVotes()+1);
+                item.setOriginalPoints(item.getOriginalPoints()+userPoints);
+            }
+            itemRepository.save(item);
         }
 
         return "redirect:/items/details/"+itemId;

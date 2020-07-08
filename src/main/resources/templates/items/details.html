@@ -13,7 +13,7 @@
 <body>
 <div th:insert="/navbar :: navbar">  </div>
     <div class="container" th:each="item: ${detailedItems}">
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-sm-6">
                 <div class="card bg-dark text-white" style="width:400px" >
                     <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -51,10 +51,14 @@
                     Nieoryginalny <span class="badge badge-light" th:text="${item.fakePoints}">1</span>
                 </button>
                 <h3 class="text-dark mt-2">Twoja ocena:</h3>
-                <form>
+                <form th:if="${votes == null}">
                     <a th:href="@{/items/vote(itemId=${item.id},userId=1,choice=1)}"><button type="button" class="btn btn-success">Oryginalny</button></a>
-                    <a th:href="@{/items/vote(itemId=${item.id},userId=1,choice=0)}"><button type="submit" class="btn btn-danger">Nieoryginalny</button></a>
+                    <a th:href="@{/items/vote(itemId=${item.id},userId=1,choice=0)}"><button type="button" class="btn btn-danger">Nieoryginalny</button></a>
                 </form>
+                <span th:if="${votes != null}">
+                    <button th:if="${votes.vote == true}" class="btn btn-success">Oryginalny</button></a>
+                    <button th:if="${votes.vote == false}" class="btn btn-danger">Nieoryginalny</button></a>
+                </span>
             </div>
         </div>
         <div class="mb-3"></div>
