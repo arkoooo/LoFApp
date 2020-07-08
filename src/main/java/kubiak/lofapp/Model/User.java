@@ -1,18 +1,12 @@
 package kubiak.lofapp.Model;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
 @Entity
 @Table(name="users")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private int id;
@@ -24,14 +18,19 @@ public class User implements UserDetails {
     private List<Vote> votesLists;
 
     @Column(nullable = false, unique = true)
+    @NotEmpty
     private String username;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String mail;
 
+    private String firstName;
+    private String lastName;
     private String password;
+    private String role;
+
     private int points = 1;
-    private boolean active;
+    private boolean active = true;
 
     public int getId() {
         return id;
@@ -53,38 +52,12 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
     public String getPassword() {
         return password;
     }
 
-    @Override
     public String getUsername() {
         return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
     }
 
     public void setPassword(String password) {
@@ -114,4 +87,29 @@ public class User implements UserDetails {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }
