@@ -30,6 +30,7 @@
                         <input th:field="*{username}" class="form-control"/> <br/>
                         <label>Hasło</label>:
                         <input th:field="*{password}" type="password" class="form-control"/> <br />
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                         <label>Potwórz hasło</label>:
                         <input th:field="*{matchingPassword}" type="password" class="form-control"/> <br />
                         <center>

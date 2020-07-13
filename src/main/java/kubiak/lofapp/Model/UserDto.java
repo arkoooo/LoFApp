@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class UserDto {
     @Column(nullable = false, unique = true)
@@ -24,6 +25,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
+    @Size(min=8)
     private String password;
     private String matchingPassword;
 

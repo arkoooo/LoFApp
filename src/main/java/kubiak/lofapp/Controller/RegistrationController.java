@@ -1,11 +1,12 @@
 package kubiak.lofapp.Controller;
 
+import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
 import kubiak.lofapp.Repositories.UserRepository;
 import kubiak.lofapp.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,12 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
     UserService userService;
+    UserRepository userRepository;
+    ModelAndView mav;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/register")
@@ -30,9 +34,15 @@ public class RegistrationController {
         return "register";
     }
     @PostMapping("/register")
-    public ModelAndView registerUser (@ModelAttribute("user") @Valid UserDto userDto, HttpServletRequest request, Errors errors){
+    public ModelAndView registerUser(@ModelAttribute("user") @Valid UserDto userDto, HttpServletRequest request, BindingResult bindingResult){
+        User userExists = userRepository.findByMail(userDto.getMail());
 
-        userService.registerNewAccount(userDto);
+        if(bindingResult.hasErrors() && userExists != null) {
+                return new ModelAndView("register");
+            }else{
+                userService.registerNewAccount(userDto);
+            }
+
         return new ModelAndView("index", "user", userDto);
     }
 }
