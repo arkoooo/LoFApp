@@ -42,6 +42,7 @@ public class RegistrationController {
             }else{
                 userService.registerNewAccount(userDto);
             }
+        /** **/
 
         return new ModelAndView("index", "user", userDto);
     }
