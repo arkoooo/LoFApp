@@ -25,7 +25,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    @Size(min=8)
+    @Size(min=8, max=64)
     private String password;
     private String matchingPassword;
 

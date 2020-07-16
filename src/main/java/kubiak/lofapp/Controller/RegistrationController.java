@@ -34,16 +34,17 @@ public class RegistrationController {
         return "register";
     }
     @PostMapping("/register")
-    public ModelAndView registerUser(@ModelAttribute("user") @Valid UserDto userDto, HttpServletRequest request, BindingResult bindingResult){
+    public ModelAndView registerUser(@Valid @ModelAttribute("user") UserDto userDto, HttpServletRequest request, BindingResult bindingResult){
         User userExists = userRepository.findByMail(userDto.getMail());
 
-        if(bindingResult.hasErrors() && userExists != null) {
-                return new ModelAndView("register");
-            }else{
-                userService.registerNewAccount(userDto);
-            }
-        /** **/
+        if(bindingResult.hasErrors() || userExists != null) {
+            return new ModelAndView("register");
+        }else{
+            userService.registerNewAccount(userDto);
+        }
 
         return new ModelAndView("index", "user", userDto);
     }
+
+
 }
