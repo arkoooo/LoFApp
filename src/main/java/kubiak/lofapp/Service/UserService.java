@@ -16,15 +16,45 @@ public class UserService {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public User registerNewAccount(UserDto userDto){
-        User user = new User();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setUsername(userDto.getUsername());
-        user.setMail(userDto.getMail());
-        user.setRole("ROLE_USER");
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    public String registerNewAccount(UserDto userDto){
+        if(!userDto.getPassword().isEmpty() && !userDto.getUsername().isEmpty() && !userDto.getMail().isEmpty()) {
+            User user = new User();
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setUsername(userDto.getUsername());
+            user.setMail(userDto.getMail());
+            user.setRole("ROLE_USER");
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            boolean isPasswordsMatch = checkMatchingPasswords(userDto.getPassword(),userDto.getMatchingPassword());
+            boolean isUserExists = isUserExists(userDto.getUsername(), userDto.getMail());
 
-        return userRepository.save(user);
+            if(isPasswordsMatch){
+                if(!isUserExists) {
+                    userRepository.save(user);
+                    return "success";
+                }else{
+                    return "userExists";
+                    }
+            }else{
+                return "passwordDoesNotMatch";
+                }
+        }else{
+            return "fillFields";
+            }
+    }
+
+    private boolean checkMatchingPasswords(String password, String matchingPassword){
+        return password.equals(matchingPassword);
+    }
+
+    private boolean isUserExists(String username, String mail) {
+        if(userRepository.findByUsername(username) != null){
+            return true;
+        }
+        if(userRepository.findByMail(mail) != null){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

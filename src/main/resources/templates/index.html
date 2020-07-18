@@ -15,6 +15,9 @@
 <div th:insert="/navbar :: navbar">  </div>
 <div class="container">
     <br>
+    <div class="alert alert-success" th:if="${message != null}">
+        <strong>Powodzenie!</strong> <span th:text="${message}">pomyślnie zarejestrowano.</span>
+    </div>
     <div class="jumbotron bg-dark" >
         <div class="table-responsive">
             <table class="table table-borderless">

@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    UserRepository userRepository;
+    UserRepository userRepository; //
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/items/details/*").authenticated()
                 .antMatchers("/index").permitAll()
-                .and().formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/index.html");
+                .and().
+                formLogin().
+                loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll()
+                .loginProcessingUrl("/login")
+                .successForwardUrl("/postLogin");
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

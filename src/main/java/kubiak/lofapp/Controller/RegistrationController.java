@@ -2,6 +2,8 @@ package kubiak.lofapp.Controller;
 
 import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
+import kubiak.lofapp.Repositories.ItemCategoryRepository;
+import kubiak.lofapp.Repositories.ItemRepository;
 import kubiak.lofapp.Repositories.UserRepository;
 import kubiak.lofapp.Service.UserService;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,14 @@ import javax.validation.Valid;
 public class RegistrationController {
     UserService userService;
     UserRepository userRepository;
-    ModelAndView mav;
+    ItemCategoryRepository itemCategoryRepository;
+    ItemRepository itemRepository;
 
-    public RegistrationController(UserService userService, UserRepository userRepository) {
+    public RegistrationController(UserService userService, UserRepository userRepository, ItemCategoryRepository itemCategoryRepository, ItemRepository itemRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.itemCategoryRepository = itemCategoryRepository;
+        this.itemRepository = itemRepository;
     }
 
     @GetMapping("/register")
@@ -34,16 +39,30 @@ public class RegistrationController {
         return "register";
     }
     @PostMapping("/register")
-    public ModelAndView registerUser(@Valid @ModelAttribute("user") UserDto userDto, HttpServletRequest request, BindingResult bindingResult){
-        User userExists = userRepository.findByMail(userDto.getMail());
+    public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, HttpServletRequest request, Model model){
 
-        if(bindingResult.hasErrors() || userExists != null) {
-            return new ModelAndView("register");
-        }else{
-            userService.registerNewAccount(userDto);
+        switch(userService.registerNewAccount(userDto)){
+            case "success":
+                model.addAttribute("message", "Pomyślnie zarejestrowano!");
+                model.addAttribute("user", userDto);
+                model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
+                model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
+                model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
+                model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
+                return "index";
+            case "passwordDoesNotMatch":
+                model.addAttribute("error","Podane hasła są różne!");
+                return "register";
+            case "userExists":
+                model.addAttribute("error", "Użytkownik już istnieje!");
+                return "register";
+            case "passwordIsTooWeak":
+                model.addAttribute("error","Hasło nie spełnia kryteriów!");
+            case "fillFields":
+                model.addAttribute("error","Uzupełnij wszystkie pola!");
+            default:
+                return "register";
         }
-
-        return new ModelAndView("index", "user", userDto);
     }
 
 

@@ -17,7 +17,7 @@
         <h1 class="text-dark">Zaloguj się</h1>
         <p th:if="${loginError}" class="error">Błędny użytkownik lub hasło</p>
     </div>
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/postLogin}" method="post">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
                     <div class="form-group">
