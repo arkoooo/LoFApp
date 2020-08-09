@@ -17,6 +17,8 @@ public class UserService {
 
     @Transactional
     public String registerNewAccount(UserDto userDto){
+        // Error handling. UserService validates the data and returns the appropriate information. When fields are
+        // filled and passwords match, user doesn't exists - then UserService saves user
         if(!userDto.getPassword().isEmpty() && !userDto.getUsername().isEmpty() && !userDto.getMail().isEmpty()) {
             User user = new User();
             user.setFirstName(userDto.getFirstName());
@@ -30,8 +32,13 @@ public class UserService {
 
             if(isPasswordsMatch){
                 if(!isUserExists) {
-                    userRepository.save(user);
-                    return "success";
+                    if(isPasswordStrong(userDto.getPassword())){
+                        System.out.println("Rejestruję");
+                        userRepository.save(user);
+                        return "success";
+                    }else{
+                        return "passwordIsTooWeak";
+                    }
                 }else{
                     return "userExists";
                     }
@@ -56,5 +63,8 @@ public class UserService {
         }else{
             return false;
         }
+    }
+    private boolean isPasswordStrong(String password){
+        return password.length() > 7;
     }
 }

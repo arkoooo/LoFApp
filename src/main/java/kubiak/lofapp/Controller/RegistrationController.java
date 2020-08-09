@@ -41,6 +41,7 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, HttpServletRequest request, Model model){
 
+        // Error handling. UserService sends information about the error, and this instruction displays the error
         switch(userService.registerNewAccount(userDto)){
             case "success":
                 model.addAttribute("message", "Pomyślnie zarejestrowano!");
@@ -54,10 +55,11 @@ public class RegistrationController {
                 model.addAttribute("error","Podane hasła są różne!");
                 return "register";
             case "userExists":
-                model.addAttribute("error", "Użytkownik już istnieje!");
+                model.addAttribute("error", "Konto dla tego loginu/maila już istnieje!");
                 return "register";
             case "passwordIsTooWeak":
-                model.addAttribute("error","Hasło nie spełnia kryteriów!");
+                model.addAttribute("error","Hasło nie spełnia wymagań!");
+                return "register";
             case "fillFields":
                 model.addAttribute("error","Uzupełnij wszystkie pola!");
             default:
