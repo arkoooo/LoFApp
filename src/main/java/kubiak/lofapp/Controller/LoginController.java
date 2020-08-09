@@ -2,9 +2,11 @@ package kubiak.lofapp.Controller;
 
 import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Repositories.ItemCategoryRepository;
+import kubiak.lofapp.Repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
