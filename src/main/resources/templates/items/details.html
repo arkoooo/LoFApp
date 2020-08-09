@@ -52,8 +52,8 @@
                 </button>
                 <h3 class="text-dark mt-2">Twoja ocena:</h3>
                 <form th:if="${votes == null}">
-                    <a th:href="@{/items/vote(itemId=${item.id},userId=1,choice=1)}"><button type="button" class="btn btn-success">Oryginalny</button></a>
-                    <a th:href="@{/items/vote(itemId=${item.id},userId=1,choice=0)}"><button type="button" class="btn btn-danger">Nieoryginalny</button></a>
+                    <a th:href="@{/items/vote(itemId=${item.id},userId=${userId},choice=1)}"><button type="button" class="btn btn-success">Oryginalny</button></a>
+                    <a th:href="@{/items/vote(itemId=${item.id},userId=${userId},choice=0)}"><button type="button" class="btn btn-danger">Nieoryginalny</button></a>
                 </form>
                 <span th:if="${votes != null}">
                     <button th:if="${votes.vote == true}" class="btn btn-success">Oryginalny</button></a>

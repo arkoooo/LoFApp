@@ -6,6 +6,8 @@ import kubiak.lofapp.Model.Vote;
 import kubiak.lofapp.Repositories.ItemRepository;
 import kubiak.lofapp.Repositories.UserRepository;
 import kubiak.lofapp.Repositories.VoteRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +29,8 @@ public class VoteController {
 
     @GetMapping("/items/vote")
     public String vote(@RequestParam int itemId, int userId, boolean choice){
-        User user = userRepository.findById(userId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
         Item item = itemRepository.findById(itemId);
         int userPoints = user.getPoints();
 

@@ -26,6 +26,7 @@ public class MainController {
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
         model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
         model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
+
         return "index";
     }
 }
