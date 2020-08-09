@@ -1,22 +1,32 @@
 package kubiak.lofapp.Service;
 
+import kubiak.lofapp.Model.Role;
 import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
+import kubiak.lofapp.Repositories.RoleRepository;
 import kubiak.lofapp.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Arrays;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
+    RoleRepository roleRepository;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public UserService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Transactional
     public String registerNewAccount(UserDto userDto){
+        Role userRole = roleRepository.findByRole("USER");
+
         // Error handling. UserService validates the data and returns the appropriate information. When fields are
         // filled and passwords match, user doesn't exists - then UserService saves user
         if(!userDto.getPassword().isEmpty() && !userDto.getUsername().isEmpty() && !userDto.getMail().isEmpty()) {
@@ -25,7 +35,8 @@ public class UserService {
             user.setLastName(userDto.getLastName());
             user.setUsername(userDto.getUsername());
             user.setMail(userDto.getMail());
-            user.setRole("ROLE_USER");
+            user.setRole(userRole);
+            user.setActive(true);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             boolean isPasswordsMatch = checkMatchingPasswords(userDto.getPassword(),userDto.getMatchingPassword());
             boolean isUserExists = isUserExists(userDto.getUsername(), userDto.getMail());
@@ -33,7 +44,6 @@ public class UserService {
             if(isPasswordsMatch){
                 if(!isUserExists) {
                     if(isPasswordStrong(userDto.getPassword())){
-                        System.out.println("Rejestruję");
                         userRepository.save(user);
                         return "success";
                     }else{

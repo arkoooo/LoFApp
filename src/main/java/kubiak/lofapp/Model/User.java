@@ -2,6 +2,7 @@ package kubiak.lofapp.Model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -24,10 +25,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String mail;
 
+    @ManyToOne
+    private Role role;
+
     private String firstName;
     private String lastName;
     private String password;
-    private String role;
+
+
 
     private int points = 1;
     private boolean active = true;
@@ -104,12 +109,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
-
 }
