@@ -29,4 +29,9 @@ public class MainController {
 
         return "index";
     }
+
+    @RequestMapping({"/navbar"})
+    public String navbar(Model model){
+        return "navbar";
+    }
 }
