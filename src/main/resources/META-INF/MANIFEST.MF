@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: lofapp
+Implementation-Version: 1.5.6.RELEASE
+Archiver-Version: Plexus Archiver
+Built-By: Kubiak
+Implementation-Vendor-Id: kubiak.lofapp
+Spring-Boot-Version: 1.5.6.RELEASE
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: kubiak.lofapp.LofappApplication
+Start-Class: kubiak.lofapp.LofappApplication
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_131

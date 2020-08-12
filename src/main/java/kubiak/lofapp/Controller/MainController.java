@@ -27,7 +27,7 @@ public class MainController {
         model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
         model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
 
-        return "index";
+        return "s3://lofapp/templates/index.html";
     }
 
     @RequestMapping({"/navbar"})
