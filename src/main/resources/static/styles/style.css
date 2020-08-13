@@ -1,6 +1,9 @@
 body{
     background-color: #F0F8FF;
 }
+.background-color{
+    background-color: #F0F8FF;
+}
 h1, p{
     color: white;
 }

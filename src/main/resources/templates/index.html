@@ -18,15 +18,15 @@
     <div class="alert alert-success" th:if="${message != null}">
          <span th:text="${message}">pomyślnie zarejestrowano.</span>
     </div>
-    <div class="jumbotron bg-dark" >
+    <div>
+        <h1 class="text-dark">Najnowsze</h1>
+        <p class="text-dark">Ostatnio dodane przedmioty</p>
+    </div>
+    <div class="jumbotron background-color shadow-lg pb-0 pt-0" >
         <div class="table-responsive">
             <table class="table table-borderless">
-                <tr>
-                    <h1>Najnowsze</h1>
-                    <p>Ostatnio dodane przedmioty</p>
-                </tr>
                 <th th:each="newest : ${newestItems}">
-                    <div class="card mt-5 bg-dark text-white" style="width:200px" >
+                    <div class="card mt-5 bg-secondary text-white" style="width:200px" >
                         <img class="card-img-top rounded" style="width:100%">
                         <div class="card-body">
                             <img class="card-img-top rounded" th:src="@{/image/{id}(id=${newest.image.id})}" style="width:100%;height:200px">
@@ -39,15 +39,15 @@
             </table>
         </div>
     </div>
-    <div class="jumbotron bg-dark">
+    <div class="text-dark">
+        <h1 class="text-dark">Najpopularniejsze</h1>
+        <p class="text-dark">Najczęściej wyświetlane przedmioty</p>
+    </div>
+    <div class="jumbotron background-color shadow-lg pb-0 pt-0">
         <div class="table-responsive">
             <table class="table table-borderless">
-                <tr>
-                <h1>Najpopularniejsze</h1>
-                <p>Najczęściej wyświetlane przedmioty</p>
-                </tr>
                 <th th:each="topViewed : ${topViewedItems}">
-                    <div class="card mt-5 bg-dark text-white" style="width:200px" >
+                    <div class="card mt-5 bg-secondary text-white" style="width:200px" >
                         <img class="card-img-top rounded" style="width:100%">
                         <div class="card-body">
                             <img class="card-img-top rounded" th:src="@{/image/{id}(id=${topViewed.image.id})}" style="width:100%;height:200px">
