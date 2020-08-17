@@ -50,7 +50,7 @@
                 <a class="nav-link active">Zalogowany jako: <span sec:authentication="name"></span></a>
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a th:href="@{/logout}" href="/index.html">
+                <a th:href="@{logout}" href="/index.html">
                     <button type="button" class="btn btn-outline-danger">Wyloguj</button>
                 </a>
             </li>
