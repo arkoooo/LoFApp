@@ -50,6 +50,7 @@ public class RegistrationController {
             model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
             model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
             model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
+            model.addAttribute("message","Pomyślnie zarejestrowano!");
             return "index";
         }
     }
