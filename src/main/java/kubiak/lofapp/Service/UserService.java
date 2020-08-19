@@ -5,6 +5,7 @@ import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
 import kubiak.lofapp.Repositories.RoleRepository;
 import kubiak.lofapp.Repositories.UserRepository;
+import kubiak.lofapp.Validators.PasswordMatches;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,17 +27,12 @@ public class UserService {
     @Transactional
     public String registerNewAccount(UserDto userDto) {
         Role userRole = roleRepository.findByRole("USER");
-        boolean isFieldsFilled = isFieldsFilled(userDto.getUsername(), userDto.getMail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(), userDto.getMatchingPassword());
         boolean isPasswordsMatch = checkMatchingPasswords(userDto.getPassword(), userDto.getMatchingPassword());
         boolean isUserExists = isUserExists(userDto.getUsername(), userDto.getMail());
 
-        // Error handling. UserService validates the data and returns the appropriate information. When fields are
-        // filled and passwords match, user doesn't exists - then UserService saves user
-        if(isFieldsFilled){
-            return "fillFields";
-        }if(!isPasswordStrong(userDto.getPassword())){
-            return "passwordIsTooWeak";
-        }if(isUserExists){
+        // Error handling. UserService validates the data and returns the appropriate information. When passwords match
+        // and user doesn't exists - then UserService saves user
+        if(isUserExists){
             return "userExists";
         }if(!isPasswordsMatch){
             return "passwordDoesNotMatch";
@@ -67,11 +63,5 @@ public class UserService {
         }else{
             return false;
         }
-    }
-    private boolean isPasswordStrong(String password){
-        return password.length() > 7;
-    }
-    private boolean isFieldsFilled(String username, String mail, String firstname, String lastname, String password, String matchingPassword){
-        return username.isEmpty() || mail.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || password.isEmpty() || matchingPassword.isEmpty();
     }
 }

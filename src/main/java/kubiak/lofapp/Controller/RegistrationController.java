@@ -44,31 +44,13 @@ public class RegistrationController {
     public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, HttpServletRequest request, Model model){
         if(bindingResult.hasErrors()){
             return "register";
-        }
-
-        // Error handling. UserService sends information about the error, and this instruction displays the error
-        switch(userService.registerNewAccount(userDto)){
-            case "success":
-                model.addAttribute("message", "Pomyślnie zarejestrowano!");
-                model.addAttribute("user", userDto);
-                model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
-                model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
-                model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
-                model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
-                return "index";
-            case "passwordDoesNotMatch":
-                model.addAttribute("error","Podane hasła są różne!");
-                return "register";
-            case "userExists":
-                model.addAttribute("error", "Konto dla tego loginu/maila już istnieje!");
-                return "register";
-            case "passwordIsTooWeak":
-                model.addAttribute("error","Hasło musi mieć minimum 8 liter!");
-                return "register";
-            case "fillFields":
-                model.addAttribute("error","Uzupełnij wszystkie pola!");
-            default:
-                return "register";
+        }else{
+            userService.registerNewAccount(userDto);
+            model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
+            model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
+            model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
+            model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
+            return "index";
         }
     }
 
