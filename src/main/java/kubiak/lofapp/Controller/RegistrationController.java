@@ -35,11 +35,16 @@ public class RegistrationController {
     @GetMapping("/register")
     public String showRegistrationPage(WebRequest request, Model model){
         UserDto userDto = new UserDto();
+        model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
+        model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
         model.addAttribute("user",userDto);
         return "register";
     }
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, HttpServletRequest request, Model model){
+    public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, HttpServletRequest request, Model model){
+        if(bindingResult.hasErrors()){
+            return "register";
+        }
 
         // Error handling. UserService sends information about the error, and this instruction displays the error
         switch(userService.registerNewAccount(userDto)){
@@ -58,7 +63,7 @@ public class RegistrationController {
                 model.addAttribute("error", "Konto dla tego loginu/maila już istnieje!");
                 return "register";
             case "passwordIsTooWeak":
-                model.addAttribute("error","Hasło nie spełnia wymagań!");
+                model.addAttribute("error","Hasło musi mieć minimum 8 liter!");
                 return "register";
             case "fillFields":
                 model.addAttribute("error","Uzupełnij wszystkie pola!");

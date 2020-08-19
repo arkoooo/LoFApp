@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @Column(nullable = false, unique = true)
     @NotEmpty
+    @NotNull
+    @Size(min=2, max=30)
     private String username;
 
     @Column(nullable = false, unique = true)
@@ -25,7 +27,6 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    @Size(min=8, max=64)
     private String password;
     private String matchingPassword;
 

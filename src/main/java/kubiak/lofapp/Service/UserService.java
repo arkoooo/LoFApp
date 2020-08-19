@@ -24,12 +24,23 @@ public class UserService {
     }
 
     @Transactional
-    public String registerNewAccount(UserDto userDto){
+    public String registerNewAccount(UserDto userDto) {
         Role userRole = roleRepository.findByRole("USER");
+        boolean isFieldsFilled = isFieldsFilled(userDto.getUsername(), userDto.getMail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPassword(), userDto.getMatchingPassword());
+        boolean isPasswordsMatch = checkMatchingPasswords(userDto.getPassword(), userDto.getMatchingPassword());
+        boolean isUserExists = isUserExists(userDto.getUsername(), userDto.getMail());
 
         // Error handling. UserService validates the data and returns the appropriate information. When fields are
         // filled and passwords match, user doesn't exists - then UserService saves user
-        if(!userDto.getPassword().isEmpty() && !userDto.getUsername().isEmpty() && !userDto.getMail().isEmpty()) {
+        if(isFieldsFilled){
+            return "fillFields";
+        }if(!isPasswordStrong(userDto.getPassword())){
+            return "passwordIsTooWeak";
+        }if(isUserExists){
+            return "userExists";
+        }if(!isPasswordsMatch){
+            return "passwordDoesNotMatch";
+        }else{
             User user = new User();
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
@@ -38,26 +49,9 @@ public class UserService {
             user.setRole(userRole);
             user.setActive(true);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            boolean isPasswordsMatch = checkMatchingPasswords(userDto.getPassword(),userDto.getMatchingPassword());
-            boolean isUserExists = isUserExists(userDto.getUsername(), userDto.getMail());
-
-            if(isPasswordsMatch){
-                if(!isUserExists) {
-                    if(isPasswordStrong(userDto.getPassword())){
-                        userRepository.save(user);
-                        return "success";
-                    }else{
-                        return "passwordIsTooWeak";
-                    }
-                }else{
-                    return "userExists";
-                    }
-            }else{
-                return "passwordDoesNotMatch";
-                }
-        }else{
-            return "fillFields";
-            }
+            userRepository.save(user);
+            return "success";
+        }
     }
 
     private boolean checkMatchingPasswords(String password, String matchingPassword){
@@ -76,5 +70,8 @@ public class UserService {
     }
     private boolean isPasswordStrong(String password){
         return password.length() > 7;
+    }
+    private boolean isFieldsFilled(String username, String mail, String firstname, String lastname, String password, String matchingPassword){
+        return username.isEmpty() || mail.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || password.isEmpty() || matchingPassword.isEmpty();
     }
 }

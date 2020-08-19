@@ -26,12 +26,11 @@ public class MainController {
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
         model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
         model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
-
         return "index";
     }
 
-    @RequestMapping({"/navbar"})
-    public String navbar(Model model){
+    @RequestMapping("navbar")
+    public String showNavbar(Model model){
         return "navbar";
     }
 }

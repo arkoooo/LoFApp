@@ -17,7 +17,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="../" th:href="@{/}">Strona główna</a>
         </li>
-        <li class="nav-item dropdown cursor">
+        <li class="nav-item dropdown cursor active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown">Odzież</a>
             <div class="dropdown-menu border border-white">
                 <span th:each="category: ${clothesCategories}">
@@ -25,7 +25,7 @@
                 </span>
             </div>
         </li>
-        <li class="nav-item dropdown cursor">
+        <li class="nav-item dropdown cursor active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown">Obuwie</a>
             <div class="dropdown-menu border border-white">
                 <span th:each="category: ${shoesCategories}">
@@ -35,7 +35,7 @@
         </li>
         <li class="nav-item">
             <a sec:authorize="!isAuthenticated()" class="nav-link disabled">Lista sprawdzających</a>
-            <a sec:authorize="isAuthenticated()" class="nav-link active" href="../users/list.html" th:href="@{/users/all}">Lista sprawdzających</a>
+            <a sec:authorize="isAuthenticated()" class="nav-link active" href="users/testers.html" th:href="@{~/users/testers}">Lista sprawdzających</a>
         </li>
         <li class="nav-item">
             <a sec:authorize="!isAuthenticated()" class="nav-link disabled" href="#">Menu użytkownika</a>
@@ -50,17 +50,17 @@
                 <a class="nav-link active">Zalogowany jako: <span sec:authentication="name"></span></a>
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a th:href="@{logout}" href="/index.html">
+                <a th:href="@{~/logout}" href="/index.html">
                     <button type="button" class="btn btn-outline-danger">Wyloguj</button>
                 </a>
             </li>
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a th:href="@{/register}" href="/register.html">
+                <a th:href="@{~/register}" href="/register.html">
                     <button type="button" class="btn btn-outline-info">Rejestracja</button>
                 </a>
             </li>&nbsp
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a th:href="@{/login}" href="/login.html">
+                <a th:href="@{~/login}" href="/login.html">
                     <button type="button" class="btn btn-outline-success">Zaloguj</button>
                 </a>
             </li>

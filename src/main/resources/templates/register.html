@@ -24,18 +24,17 @@
                 <div class="col-lg-4 mx-auto">
                     <div class="form-group">
                         <label>Imię</label>:
-                        <input th:field="*{firstName}" autofocus="autofocus" class="form-control"/> <br/>
+                        <input th:field="*{firstName}" autofocus="autofocus" class="form-control" required autofocus/> <br/>
                         <label>Nazwisko</label>:
-                        <input th:field="*{lastName}" class="form-control"/> <br/>
+                        <input th:field="*{lastName}" class="form-control" required autofocus/> <br/>
                         <label>Adres e-mail</label>:
-                        <input th:field="*{mail}" type="email" class="form-control"/> <br/>
+                        <input th:field="*{mail}" type="email" class="form-control" required autofocus/> <br/>
                         <label>Login</label>:
-                        <input th:field="*{username}" class="form-control"/> <br/>
+                        <input type="text" th:field="*{username}" class="form-control" required autofocus/> <br/>
                         <label>Hasło</label>:
-                        <input th:field="*{password}" type="password" class="form-control"/> <br />
-                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                        <input th:field="*{password}" type="password" class="form-control" required autofocus/> <br />
                         <label>Potwórz hasło</label>:
-                        <input th:field="*{matchingPassword}" type="password" class="form-control"/> <br />
+                        <input th:field="*{matchingPassword}" type="password" class="form-control" required autofocus/> <br />
                         <center>
                         <input type="submit" class="btn btn-success" value="Zarejestruj" />
                         <input type="reset" class="btn btn-danger" value="Reset" />
