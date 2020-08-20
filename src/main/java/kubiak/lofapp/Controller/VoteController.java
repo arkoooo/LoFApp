@@ -36,28 +36,31 @@ public class VoteController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         Item item = itemRepository.findById(itemId);
+        configuration = configurationRepository.findByOption("pointsToMarkItem");
+
+        // Load configuration from db
         if(configuration == null){
             numberOfPointsToMarkItem = 10;
         }else{
-            configuration = configurationRepository.findByOption("pointsToMarkItem");
             numberOfPointsToMarkItem = configuration.getValue();
         }
 
-
         //  User can vote only once on item, so there is looking for other votes
         if(voteRepository.findByUserIdAndItemId(userId, itemId) == null){
+            Vote vote = new Vote(item,user,choice,false);
+
+            // If user has role "tester", then add points to item, and set vote as valid
             if(checkIsUserAbleToVote(user)) {
-                Vote vote = new Vote(item, user, choice, true);
+                vote.setValid(true);
                 voteRepository.save(vote);
-                // If user has role "tester", then add points
                 addPointsToItem(item, user, choice);
             }else{
-                Vote vote = new Vote(item, user, choice, false);
                 voteRepository.save(vote);
             }
             itemRepository.save(item);
         }
 
+        // Check if item reaches the genuine score. If true, then add points to user
         if(checkVotes(item,numberOfPointsToMarkItem)){
             addPointsToUsers(item);
         }
@@ -72,6 +75,7 @@ public class VoteController {
     private boolean checkVotes(Item item, int numberOfPointsToMarkItem){
         return item.getFakePoints() > numberOfPointsToMarkItem || item.getOriginalPoints() > numberOfPointsToMarkItem;
     }
+    // Check if the vote can be added to the total of user's votes
     private void addPointsToUsers(Item item){
         List<Vote> votes = voteRepository.findByItemId(item.getId());
         boolean legit = legit(item);
@@ -81,8 +85,7 @@ public class VoteController {
         for(Vote vote : votes){
             // If item is marked as legit and user voted that is legit or item is marked as fake and user voted for fake
             // and vote wasn't summed up - then add points to account
-
-            if(((legit && vote.isVote()) || (!legit && !vote.isVote())) && !vote.isSummedUp()){
+            if((legit && vote.isVote()) || (!legit && !vote.isVote()) && !vote.isSummedUp()){
                 user = vote.getUser();
                 user.setPoints(user.getPoints()+1);
                 userRepository.save(user);
