@@ -16,6 +16,8 @@ public class Vote {
     private User user;
 
     private boolean vote;
+    private boolean valid;
+    private boolean summedUp;
 
     public int getId() {
         return id;
@@ -49,12 +51,29 @@ public class Vote {
         this.user = user;
     }
 
-    public Vote(Item item, User user, boolean vote) {
+    public Vote(Item item, User user, boolean vote, boolean valid) {
         this.item = item;
         this.user = user;
         this.vote = vote;
+        this.valid = valid;
     }
 
     public Vote() {
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public boolean isSummedUp() {
+        return summedUp;
+    }
+
+    public void setSummedUp(boolean summedUp) {
+        this.summedUp = summedUp;
     }
 }
