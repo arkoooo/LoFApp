@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
+    <script type="text/javascript" th:src="@{/js/lib.js}"></script>
+    <title>Legit or Fake</title>
+</head>
+<body>
+<div th:insert="navbar :: navbar">  </div>
+<div class="container">
+<div class="text-center mt-1">
+    <h1 class="text-dark">Zmiana danych</h1>
+</div>
+<div class="alert alert-danger" th:if="${error != null}">
+    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+</div>
+<form th:action="@{/change-data}" th:object="${user}" method="post">
+    <div class="row">
+        <div class="col-lg-4 mx-auto">
+            <div class="form-group">
+                <label>Imię</label>:
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+                </div>
+                <input th:field="*{firstName}" autofocus="autofocus" class="form-control"/> <br/>
+                <label>Nazwisko</label>:
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+                </div>
+                <input th:field="*{lastName}" class="form-control" /> <br/>
+                <label>Adres e-mail</label>:
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">
+                    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+                </div>
+                <input th:field="*{mail}" type="email" class="form-control"/> <br/>
+                <center>
+                    <input type="submit" class="btn btn-success" value="Zapisz" />
+                    <input type="reset" class="btn btn-danger" value="Reset" />
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+</body>
+</html>

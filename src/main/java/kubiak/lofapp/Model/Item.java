@@ -33,6 +33,7 @@ public class Item {
     private String description;
     private String createDate;
     private int views;
+    private String dataEnd;
 
     public int getId() {
         return id;
@@ -136,5 +137,13 @@ public class Item {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public String getDataEnd() {
+        return dataEnd;
+    }
+
+    public void setDataEnd(String dataEnd) {
+        this.dataEnd = dataEnd;
     }
 }

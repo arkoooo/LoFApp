@@ -31,4 +31,4 @@ build/
 .vscode/
 
 ### Configuration ###
-application2.properties
+*.properties

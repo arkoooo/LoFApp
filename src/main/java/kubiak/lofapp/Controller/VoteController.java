@@ -85,7 +85,7 @@ public class VoteController {
         for(Vote vote : votes){
             // If item is marked as legit and user voted that is legit or item is marked as fake and user voted for fake
             // and vote wasn't summed up - then add points to account
-            if((legit && vote.isVote()) || (!legit && !vote.isVote()) && !vote.isSummedUp()){
+            if(((legit && vote.isVote()) || (!legit && !vote.isVote())) && !vote.isSummedUp()){
                 user = vote.getUser();
                 user.setPoints(user.getPoints()+1);
                 userRepository.save(user);

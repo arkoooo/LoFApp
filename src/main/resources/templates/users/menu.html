@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
+    <script type="text/javascript" th:src="@{/js/lib.js}"></script>
+    <title>Legit or Fake</title>
+</head>
+<body>
+<div th:insert="navbar :: navbar">  </div>
+<div class="container" th:each="user: ${users}">
+    <h3 class="mt-2">Twoje dane osobowe:</h3>
+    <h4>Login: <span th:text="${user.username}"></span></h4>
+    <h4>Imię i nazwisko: <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h4>
+    <h4>Mail: <span th:text="${user.mail}"></span></h4>
+    <h4>Punkty: <span th:text="${user.points}"></span></h4>
+    <h4>Rola: <span th:text="${user.role.translateRole()}"></span></h4>
+    <a href="change-data.html" th:href="@{change-data}"><button class="btn btn-primary">Zmień dane</button></a>
+    <a href="change-password.html" th:href="@{change-password}"><button class="btn btn-warning">Zmień hasło</button>
+</div>
+</body>
+</html>

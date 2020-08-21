@@ -37,9 +37,15 @@
             <a sec:authorize="!isAuthenticated()" class="nav-link disabled">Lista sprawdzających</a>
             <a sec:authorize="isAuthenticated()" class="nav-link active" href="users/testers.html" th:href="@{~/users/testers}">Lista sprawdzających</a>
         </li>
-        <li class="nav-item">
-            <a sec:authorize="!isAuthenticated()" class="nav-link disabled" href="#">Menu użytkownika</a>
-            <a sec:authorize="isAuthenticated()" class="nav-link active" href="#">Menu użytkownika</a>
+        <li sec:authorize="isAuthenticated()" class="nav-item dropdown cursor active">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Menu użytkownika</a>
+            <div class="dropdown-menu border border-white">
+                <a class="dropdown-item" href="users/menu.html" th:href="@{~/users/menu}">Dane użytkownika</a>
+                <a class="dropdown-item" href="/items/add.html">Dodaj produkt</a>
+            </div>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+            <a  class="nav-link disabled" href ="#">Menu użytkownika</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link cursor" onclick="goBack()">Powrót</a>

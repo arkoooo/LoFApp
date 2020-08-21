@@ -32,4 +32,17 @@ public class Role {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String translateRole(){
+        switch (role){
+            case "USER":
+                return "Użytkownik";
+            case "TESTER":
+                return "Tester";
+            case "ADMIN":
+                return "Administrator";
+            default:
+                return "Brak";
+        }
+    }
 }
