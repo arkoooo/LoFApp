@@ -67,11 +67,21 @@ public class VoteController {
         promoteUser(user, numberOfPointsToMarkItem);
         return "redirect:/items/details/"+itemId;
     }
-    // This method checks if User role is "tester"
+
+    /**
+     * @param user
+     * @return if User role is "tester"
+     */
     private boolean checkIsUserAbleToVote(User user){
         return user.getRole() == roleRepository.findByRole("TESTER");
     }
-    // This method checks when an item reaches the genuine score
+
+    /**
+     * This method checks when an item reaches the genuine score
+     * @param item
+     * @param numberOfPointsToMarkItem
+     * @return if item have more fake or original points than configured limit
+     */
     private boolean checkVotes(Item item, int numberOfPointsToMarkItem){
         return item.getFakePoints() > numberOfPointsToMarkItem || item.getOriginalPoints() > numberOfPointsToMarkItem;
     }

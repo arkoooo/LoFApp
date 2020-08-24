@@ -17,6 +17,12 @@ public class ImageController {
         this.imageRepository = imageRepository;
     }
 
+    /**
+     * Method looks for image by id in database.
+     *
+     * @param id - image id
+     * @return url of image
+     */
     @GetMapping("/image/{id}")
     public String getImage(@PathVariable("id") int id){
         Image image = imageRepository.findById(id);

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -32,6 +30,12 @@ public class RegistrationController {
         this.itemRepository = itemRepository;
     }
 
+    /**
+     *
+     * @param request
+     * @param model
+     * @return Registration page
+     */
     @GetMapping("/register")
     public String showRegistrationPage(WebRequest request, Model model){
         UserDto userDto = new UserDto();
@@ -40,12 +44,25 @@ public class RegistrationController {
         model.addAttribute("user",userDto);
         return "register";
     }
+
+    /**
+     * Method checks if all fields are filled correctly, if not returns an error. When fields are field then new user is saved to database
+     * and url is redirected to main page with message. If registerNewAccount method returns string "userExists" - that means this login
+     * or mail is already used by another user.
+     * @param userDto
+     * @param bindingResult
+     * @param request
+     * @param model
+     * @return main page or register page (when binding result has errors)
+     */
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, HttpServletRequest request, Model model){
         if(bindingResult.hasErrors()){
             return "register";
+        }if(userService.registerNewAccount(userDto).equals("userExists")){
+            model.addAttribute("error", "Użytkownik o podanym loginie lub adresie e-mail już istnieje w systemie!");
+            return "register";
         }else{
-            userService.registerNewAccount(userDto);
             model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
             model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
             model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());

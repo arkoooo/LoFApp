@@ -13,6 +13,9 @@
 <body>
 <div th:insert="navbar :: navbar">  </div>
 <div class="container" th:each="user: ${users}">
+    <div class="alert alert-success mt-2" th:if="${message != null}">
+        <strong>Powodzenie! </strong><span th:text="${message}">Wiadomość.</span>
+    </div>
     <h3 class="mt-2">Twoje dane osobowe:</h3>
     <h4>Login: <span th:text="${user.username}"></span></h4>
     <h4>Imię i nazwisko: <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h4>

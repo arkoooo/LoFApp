@@ -2,7 +2,6 @@ package kubiak.lofapp.Model;
 
 import com.sun.istack.NotNull;
 import kubiak.lofapp.Validators.PasswordMatches;
-import kubiak.lofapp.Validators.ValidPassword;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -30,7 +29,6 @@ public class UserDto {
     private String lastName;
 
     @NotNull
-    @ValidPassword
     private String password;
 
     @NotNull

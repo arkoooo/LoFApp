@@ -23,7 +23,6 @@ public class LoginController {
     public String login(Model model) {
         model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
-
         return "login";
     }
 }

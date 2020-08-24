@@ -1,6 +1,7 @@
 package kubiak.lofapp.Model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Item {
     private String description;
     private String createDate;
     private int views;
-    private String dataEnd;
+    private Date dataEnd;
 
     public int getId() {
         return id;
@@ -139,11 +140,12 @@ public class Item {
         this.views = views;
     }
 
-    public String getDataEnd() {
+    public Date getDataEnd() {
         return dataEnd;
     }
 
-    public void setDataEnd(String dataEnd) {
+    public void setDataEnd(Date dataEnd) {
         this.dataEnd = dataEnd;
     }
+
 }

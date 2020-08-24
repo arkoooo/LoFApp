@@ -27,6 +27,13 @@ public class ItemController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Method looks for all items of category chosen by user.
+     *
+     * @param id product category id
+     * @param model
+     * @return view of page shows all items of chosen category
+     */
     @GetMapping("/items/all/{id}")
     public String showAll(@PathVariable("id") int id, Model model){
         List <Item> items = itemRepository.findByItemCategoryId(id);
@@ -36,6 +43,13 @@ public class ItemController {
         model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
         return "items/all";
     }
+
+    /**
+     * Method shows details, images and number of votes of chosen item.
+     * @param id item id
+     * @param model
+     * @return view of item details
+     */
     @GetMapping("/items/details/{id}")
     public String showDetails(@PathVariable("id") int id, Model model){
         Item item = itemRepository.findById(id);
