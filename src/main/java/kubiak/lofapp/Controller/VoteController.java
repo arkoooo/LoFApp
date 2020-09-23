@@ -19,15 +19,17 @@ public class VoteController {
     UserRepository userRepository;
     ItemRepository itemRepository;
     RoleRepository roleRepository;
+    private ItemTypeRepository itemTypeRepository;
     ConfigurationRepository configurationRepository;
     Configuration configuration;
     int numberOfPointsToMarkItem;
 
-    public VoteController(VoteRepository voteRepository, UserRepository userRepository, ItemRepository itemRepository, RoleRepository roleRepository, ConfigurationRepository configurationRepository) {
+    public VoteController(VoteRepository voteRepository, UserRepository userRepository, ItemRepository itemRepository, RoleRepository roleRepository, ItemTypeRepository itemTypeRepository, ConfigurationRepository configurationRepository) {
         this.voteRepository = voteRepository;
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.roleRepository = roleRepository;
+        this.itemTypeRepository = itemTypeRepository;
         this.configurationRepository = configurationRepository;
     }
 

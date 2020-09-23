@@ -1,9 +1,9 @@
 package kubiak.lofapp.Controller;
 
-import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
 import kubiak.lofapp.Repositories.ItemCategoryRepository;
 import kubiak.lofapp.Repositories.ItemRepository;
+import kubiak.lofapp.Repositories.ItemTypeRepository;
 import kubiak.lofapp.Repositories.UserRepository;
 import kubiak.lofapp.Service.UserService;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,13 @@ import javax.validation.Valid;
 public class RegistrationController {
     UserService userService;
     UserRepository userRepository;
-    ItemCategoryRepository itemCategoryRepository;
-    ItemRepository itemRepository;
+    private ItemTypeRepository itemTypeRepository;
+    private ItemRepository itemRepository;
 
-    public RegistrationController(UserService userService, UserRepository userRepository, ItemCategoryRepository itemCategoryRepository, ItemRepository itemRepository) {
+    public RegistrationController(UserService userService, UserRepository userRepository, ItemTypeRepository itemTypeRepository, ItemRepository itemRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
-        this.itemCategoryRepository = itemCategoryRepository;
+        this.itemTypeRepository = itemTypeRepository;
         this.itemRepository = itemRepository;
     }
 
@@ -39,8 +39,7 @@ public class RegistrationController {
     @GetMapping("/register")
     public String showRegistrationPage(WebRequest request, Model model){
         UserDto userDto = new UserDto();
-        model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
-        model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
+        model.addAttribute("itemTypes",itemTypeRepository.findAll());
         model.addAttribute("user",userDto);
         return "register";
     }
@@ -63,8 +62,7 @@ public class RegistrationController {
             model.addAttribute("error", "Użytkownik o podanym loginie lub adresie e-mail już istnieje w systemie!");
             return "register";
         }else{
-            model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
-            model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
+            model.addAttribute("itemTypes",itemTypeRepository.findAll());
             model.addAttribute("topViewedItems", itemRepository.findTop10ByOrderByViewsDesc());
             model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
             model.addAttribute("message","Pomyślnie zarejestrowano!");

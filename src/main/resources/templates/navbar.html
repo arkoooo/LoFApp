@@ -17,22 +17,17 @@
         <li class="nav-item active">
             <a class="nav-link" href="../" th:href="@{/}">Strona główna</a>
         </li>
-        <li class="nav-item dropdown cursor active">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Odzież</a>
-            <div class="dropdown-menu border border-white">
-                <span th:each="category: ${clothesCategories}">
+        <!-- List of all item types in the application on the navigation bar -->
+        <div th:each="itemType: ${itemTypes}">
+            <li class="nav-item dropdown cursor active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:text="${itemType.name}">Typ</a>
+                <div class="dropdown-menu border border-white">
+                <span th:each="category: ${itemType.itemCategories}">
                     <a class="dropdown-item" href="/items/all.html" th:href="@{/items/all/{id}(id=${category.id})}" th:text="${category.name}"></a>
                 </span>
-            </div>
-        </li>
-        <li class="nav-item dropdown cursor active">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Obuwie</a>
-            <div class="dropdown-menu border border-white">
-                <span th:each="category: ${shoesCategories}">
-                    <a class="dropdown-item" href="/items/all.html" th:href="@{/items/all/{id}(id=${category.id})}" th:text="${category.name}"></a>
-                </span>
-            </div>
-        </li>
+                </div>
+            </li>
+        </div>
         <li class="nav-item">
             <a sec:authorize="!isAuthenticated()" class="nav-link disabled">Lista sprawdzających</a>
             <a sec:authorize="isAuthenticated()" class="nav-link active" href="users/testers.html" th:href="@{~/users/testers}">Lista sprawdzających</a>
@@ -41,7 +36,7 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown">Menu użytkownika</a>
             <div class="dropdown-menu border border-white">
                 <a class="dropdown-item" href="users/menu.html" th:href="@{~/users/menu}">Dane użytkownika</a>
-                <a class="dropdown-item" href="/items/add.html">Dodaj produkt</a>
+                <a class="dropdown-item" href="items/add.html" th:href="@{~/items/choose-category}">Dodaj produkt</a>
             </div>
         </li>
         <li sec:authorize="!isAuthenticated()" class="nav-item">

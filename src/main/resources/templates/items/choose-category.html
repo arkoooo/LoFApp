@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
+    <script type="text/javascript" th:src="@{/js/lib.js}"></script>
+    <title>Legit or Fake</title>
+</head>
+<body>
+<div th:insert="navbar :: navbar">  </div>
+<div class="container">
+    <div class="text-center mt-1">
+        <h1 class="text-dark">Dodawanie przedmiotu</h1>
+        <h2 class="text-dark">Wybierz kategorię:</h2>
+    </div>
+    <div class="row">
+        <div class="col" th:each="itemType: ${itemTypes}">
+            <img class="card-img-top img-responsive" th:src="${itemType.imageUrl}" alt="Odzież">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${itemType.name}">Odzież</h4>
+                <p class="card-text text-dark" th:text="${itemType.description}">Podkategorie to m.in. bluzy, t-shirty, spodnie</p>
+                <a href="add.html" th:href="@{~/items/add/{id}(id=${itemType.id})}" class="card-link"><button type="button" class="btn btn-info">Wybieram</button></a>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col">
+            <img class="card-img-top img-responsive" th:src="@{/img/categories/clothes.jpg}" alt="Odzież">
+            <div class="card-body">
+                <h4 class="card-title">Odzież</h4>
+                <p class="card-text text-dark">Podkategorie to m.in. bluzy, t-shirty, spodnie</p>
+                <a href="add.html" th:href="@{~/items/add/0}" class="card-link"><button type="button" class="btn btn-info">Wybieram</button></a>
+            </div>
+        </div>
+        <div class="col">
+            <img class="card-img-top img-responsive" th:src="@{/img/categories/shoes.jpg}" alt="Obuwie">
+            <div class="card-body">
+                <h4 class="card-title">Obuwie</h4>
+                <p class="card-text text-dark">Podkategorie to m.in. obuwie sportowe, obuwie eleganckie</p>
+                <a href="add.html" th:href="@{~/items/add/1}" class="card-link"><button type="button" class="btn btn-info">Wybieram</button></a>
+            </div>
+        </div>
+    </div>
+    -->
+</div>
+</body>
+</html>

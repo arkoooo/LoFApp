@@ -1,6 +1,7 @@
 package kubiak.lofapp.Repositories;
 
 import kubiak.lofapp.Model.Image;
+import kubiak.lofapp.Model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -4,6 +4,7 @@ import kubiak.lofapp.Model.Role;
 import kubiak.lofapp.Model.User;
 import kubiak.lofapp.Model.UserDto;
 import kubiak.lofapp.Repositories.ItemCategoryRepository;
+import kubiak.lofapp.Repositories.ItemTypeRepository;
 import kubiak.lofapp.Repositories.RoleRepository;
 import kubiak.lofapp.Repositories.UserRepository;
 import kubiak.lofapp.Service.UserService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -24,12 +24,14 @@ public class UserController {
     private ItemCategoryRepository itemCategoryRepository;
     private RoleRepository roleRepository;
     private UserService userService;
+    private ItemTypeRepository itemTypeRepository;
 
-    public UserController(UserRepository userRepository, ItemCategoryRepository itemCategoryRepository, RoleRepository roleRepository, UserService userService) {
+    public UserController(UserRepository userRepository, ItemCategoryRepository itemCategoryRepository, RoleRepository roleRepository, UserService userService, ItemTypeRepository itemTypeRepository) {
         this.userRepository = userRepository;
         this.itemCategoryRepository = itemCategoryRepository;
         this.roleRepository = roleRepository;
         this.userService = userService;
+        this.itemTypeRepository = itemTypeRepository;
     }
 
     /**
@@ -41,8 +43,7 @@ public class UserController {
     public String showTestersPage(Model model){
         Role tester = roleRepository.findByRole("TESTER");
         List<User> testers = userRepository.findByRoleId(tester.getId());
-        model.addAttribute("clothesCategories", itemCategoryRepository.findByType(0));
-        model.addAttribute("shoesCategories", itemCategoryRepository.findByType(1));
+        model.addAttribute("itemTypes",itemTypeRepository.findAll());
         model.addAttribute("testers",testers);
         return "users/testers";
     }
@@ -84,6 +85,7 @@ public class UserController {
     public String changeUserData(@ModelAttribute("user") UserDto userDto, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
+        model.addAttribute("itemTypes",itemTypeRepository.findAll());
 
         switch(userService.changeUserData(userDto,user)) {
             case "success":

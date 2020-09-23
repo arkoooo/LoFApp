@@ -13,7 +13,9 @@ public class ItemCategory {
     private List<Item> items;
 
     private String name;
-    private int type;
+
+    @ManyToOne
+    private ItemType itemType;
 
     public int getId() {
         return id;
@@ -31,11 +33,19 @@ public class ItemCategory {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public ItemType getItemType() {
+        return itemType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

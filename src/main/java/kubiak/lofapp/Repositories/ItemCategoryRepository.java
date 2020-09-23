@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ItemCategoryRepository extends JpaRepository<ItemCategory, Integer> {
-    List<ItemCategory> findByType(int type);
+    List<ItemCategory> findByItemTypeId(int type);
 }

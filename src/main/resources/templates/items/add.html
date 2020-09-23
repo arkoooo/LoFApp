@@ -13,7 +13,72 @@
 <body>
 <div th:insert="navbar :: navbar">  </div>
 <div class="container">
-
+    <div class="text-center mt-1">
+        <h1 class="text-dark">Dodaj przedmiot</h1>
+        <h2 class="text-dark">Kategoria: <span th:text="${itemType.name}">Nazwa kategorii</span></h2>
+    </div>
+    <form th:action="@{~/items/add-new-item}" th:object="${item}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+                <label>Nazwa przedmiotu</label>:
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+                </div>
+                <input th:field="*{name}" autofocus="autofocus" class="form-control" required="yes"/> <br/>
+                <label>Opis przedmiotu</label>:
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    <strong>Błąd!</strong> <span th:text="${error}">Error</span>
+                </div>
+                <textarea th:field="*{description}" class="form-control" rows="5" id="description"></textarea>
+                <div>
+                    <label class="mt-2">Kategoria:</label>
+                    <select class="form-control" th:field="*{itemCategory.id}" >
+                        <option th:each="itemCategory, iterstat : ${itemCategories}" th:value="${itemCategory.id}" th:text="${itemCategory.name}">Category</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="mt-2">Czas na głosowanie:</label>
+                    <select class="form-control" th:field="*{dateEnd}">
+                        <option th:value="${#temporals.format(localDateTime.plusDays(1), 'yyyy-MM-dd HH:mm')}">1 dzień</option>
+                        <option th:value="${#temporals.format(localDateTime.plusDays(2), 'yyyy-MM-dd HH:mm')}">2 dni</option>
+                        <option th:value="${#temporals.format(localDateTime.plusDays(3), 'yyyy-MM-dd HH:mm')}">3 dni</option>
+                        <option th:value="${#temporals.format(localDateTime.plusDays(5), 'yyyy-MM-dd HH:mm')}">5 dni</option>
+                        <option th:value="${#temporals.format(localDateTime.plusDays(7), 'yyyy-MM-dd HH:mm')}">7 dni</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="mt-2">Dodaj zdjęcia przedmiotu: (maksymalnie 2MB)</label>
+                    <div class="custom-file">
+                        <input type="file" name="files" class="custom-file-input">
+                        <label class="custom-file-label">Wybierz zdjęcie nr 1 (miniatura)</label>
+                    </div>
+                    <div class="custom-file mt-2">
+                        <input type="file" name="files" class="custom-file-input">
+                        <label class="custom-file-label">Wybierz zdjęcie nr 2</label>
+                    </div>
+                    <div class="custom-file mt-2">
+                        <input type="file" name="files" class="custom-file-input">
+                        <label class="custom-file-label">Wybierz zdjęcie nr 3</label>
+                    </div>
+                    <div class="custom-file mt-2">
+                        <input type="file" name="files" class="custom-file-input">
+                        <label class="custom-file-label">Wybierz zdjęcie nr 4</label>
+                    </div>
+                    <div class="custom-file mt-2">
+                        <input type="file" name="files" class="custom-file-input">
+                        <label class="custom-file-label">Wybierz zdjęcie nr 5</label>
+                    </div>
+                </div>
+                <div class="mt-2">
+                        <input type="submit" class="btn btn-success btn-lg w-25" value="Dodaj" />
+                        <input type="reset" class="btn btn-danger btn-lg w-25" value="Reset" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
 </div>
 </body>
 </html>

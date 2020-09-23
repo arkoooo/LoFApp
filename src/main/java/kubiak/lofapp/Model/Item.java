@@ -1,6 +1,8 @@
 package kubiak.lofapp.Model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +28,9 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Vote> votesList;
 
+
     private String name;
+
     private int fakePoints = 0;
     private int originalPoints = 0;
     private int fakeVotes = 0;
@@ -34,7 +38,7 @@ public class Item {
     private String description;
     private String createDate;
     private int views;
-    private Date dataEnd;
+    private String dateEnd;
 
     public int getId() {
         return id;
@@ -140,12 +144,18 @@ public class Item {
         this.views = views;
     }
 
-    public Date getDataEnd() {
-        return dataEnd;
+    public String getDateEnd() {
+        return dateEnd;
     }
 
-    public void setDataEnd(Date dataEnd) {
-        this.dataEnd = dataEnd;
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
     }
+    public boolean isVoteEnd() throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date dateEnd = formatter.parse(this.dateEnd);
+        Date date = new Date();
 
+        return dateEnd.compareTo(date) <= 0;
+    }
 }
