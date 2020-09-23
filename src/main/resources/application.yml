@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://lofapp.s3.eu-west-2.amazonaws.com
+  accessKey: AKIATCZVGY27XGYJYZFE
+  secretKey: 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
+  bucketName: lofapp-uploads
