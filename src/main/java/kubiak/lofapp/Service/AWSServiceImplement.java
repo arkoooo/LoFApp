@@ -20,8 +20,6 @@ public class AWSServiceImplement implements AWSS3Service {
     private AmazonS3 amazonS3;
     @Value("${amazonProperties.bucketName}")
     private String bucketName;
-    @Value("${amazonProperties.endpointUrl}")
-    private String endpointUrl;
 
     private String fileType;
     private String newFileName;
