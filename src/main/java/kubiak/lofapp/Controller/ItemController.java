@@ -111,7 +111,7 @@ public class ItemController {
         model.addAttribute("newestItems", itemRepository.findTop10ByOrderByCreateDateDesc());
 
         // Date formatting according to the database
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh-mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         // Setting create date of item
         item.setCreateDate(formatter.format(date));
 
@@ -135,7 +135,7 @@ public class ItemController {
             imageRepository.save(image);
             service.uploadFile(file, image.getId());
         }
-        return "index";
+        return "redirect:../index";
     }
 }
 

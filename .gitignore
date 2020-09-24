@@ -32,3 +32,4 @@ build/
 
 ### Configuration ###
 *.properties
+application.yml
