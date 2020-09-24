@@ -10,14 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
-
 @Configuration
 public class AWSS3Config {
-    @Value("${amazonProperties.endpointUrl}")
-    private String endpointUrl;
-    @Value("${amazonProperties.bucketName}")
-    private String bucketName;
     @Value("${amazonProperties.accessKey}")
     private String accessKey;
     @Value("${amazonProperties.secretKey}")

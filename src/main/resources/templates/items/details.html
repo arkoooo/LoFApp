@@ -57,7 +57,7 @@
                     <a th:href="@{/items/vote(itemId=${item.id},userId=${userId},choice=1)}"><button type="button" class="btn btn-success">Oryginalny</button></a>
                     <a th:href="@{/items/vote(itemId=${item.id},userId=${userId},choice=0)}"><button type="button" class="btn btn-danger">Nieoryginalny</button></a>
                 </div>
-                <div th:if="${votes != null and item.isVoteEnd()}">
+                <div th:if="${votes != null}">
                     <button th:if="${votes.vote == true}" class="btn btn-success">Oryginalny</button></a>
                     <button th:if="${votes.vote == false}" class="btn btn-danger">Nieoryginalny</button></a>
                 </div>
