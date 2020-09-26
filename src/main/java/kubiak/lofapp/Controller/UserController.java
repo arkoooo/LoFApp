@@ -63,6 +63,7 @@ public class UserController {
             isAdmin = true;
         }
 
+        model.addAttribute("itemTypes",itemTypeRepository.findAll());
         model.addAttribute("users",user);
         model.addAttribute("isAdmin",isAdmin);
         return "users/menu";
