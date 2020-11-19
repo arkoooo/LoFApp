@@ -1,6 +1,6 @@
 package kubiak.lofapp.Validators;
 
-import kubiak.lofapp.Model.UserDto;
+
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.ConstraintValidator;
